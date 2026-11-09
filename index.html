@@ -2,28 +2,361 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Học trực tuyến CNTT</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Ôn Tập Kiểm Tra Giữa Kỳ 1 - Toán 12</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --danger: #dc2626;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; }
+        .container { max-width: 850px; margin: 0 auto; }
+        
+        .header {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+            border-top: 5px solid var(--primary);
+        }
+        .header h1 { font-size: 20px; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
+        .header p { color: #64748b; font-size: 14px; }
+        
+        .timer-box {
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            background: #0f172a;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+        }
+        .timer-text { font-weight: bold; font-size: 18px; color: #38bdf8; }
+
+        .section-title {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 32px 0 16px 0;
+            font-size: 16px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .q-number { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 16px; }
+        .q-text { font-size: 15px; margin-bottom: 15px; color: #334155; }
+        
+        .options { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        @media (min-width: 640px) { .options { grid-template-columns: 1fr 1fr; } }
+        
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        .option-label:hover { border-color: var(--primary); background: #eff6ff; }
+        .option-label input { margin-right: 12px; accent-color: var(--primary); }
+
+        .tf-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .tf-table th, .tf-table td { border: 1px solid var(--border); padding: 10px; text-align: left; font-size: 14px; }
+        .tf-table th { background: #f1f5f9; text-align: center; }
+        .tf-options { display: flex; gap: 15px; justify-content: center; }
+
+        .short-answer-input {
+            width: 100%;
+            max-width: 250px;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+        .short-answer-input:focus { border-color: var(--primary); }
+
+        .img-container { text-align: center; margin: 15px 0; background: #fafafa; padding: 10px; border-radius: 8px; border: 1px dashed #cbd5e1; }
+        .img-container svg { max-width: 100%; height: auto; }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background 0.2s;
+        }
+        .submit-btn:hover { background: var(--primary-hover); }
+
+        .result-box {
+            display: none;
+            background: #f0fdf4;
+            border: 2px solid var(--success);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 24px;
+        }
+        .result-score { font-size: 32px; font-weight: bold; color: var(--success); }
+        .explanation { display: none; margin-top: 12px; padding: 12px; background: #fffbe6; border-left: 4px solid #f59e0b; border-radius: 4px; font-size: 14px; text-align: left; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <nav class="sidebar">
-            <ul>
-                <li class="active">Trang chủ</li>
-                <li>Khóa học</li>
-                <li>Diễn đàn</li>
-                <li>Liên hệ</li>
-            </ul>
-        </nav>
-        <main class="content">
-            <h1>Học trực tuyến Công nghệ thông tin</h1>
-            <h2>Các khóa học:</h2>
-            <ol>
-                <li>Lập trình cơ bản</li>
-                <li>Cấu trúc dữ liệu</li>
-                <li>Thiết kế web</li>
-            </ol>
-        </main>
+
+<div class="container">
+    <div class="header">
+        <h1>Đề Kiểm Tra Môn Toán - Lớp 12 (Thay Số Luyện Tập)</h1>
+        <p>Thời gian làm bài: 90 phút | Đề gồm đầy đủ 3 phần trắc nghiệm</p>
     </div>
+
+    <div class="timer-box">
+        <span>Thời gian còn lại:</span>
+        <span class="timer-text" id="timer">90:00</span>
+    </div>
+
+    <form id="examForm">
+
+        <!-- PHẦN 1 -->
+        <div class="section-title">PHẦN 1: Trắc nghiệm chọn 1 đáp án đúng (Từ câu 1 đến câu 12)</div>
+
+        <!-- Câu 1 -->
+        <div class="question-card" id="q1">
+            <div class="q-number">Câu 1</div>
+            <div class="q-text">Cho hàm số y = f(x) có đồ thị như hình vẽ bên dưới. Hàm số đã cho <b>nghịch biến</b> trên khoảng nào trong các khoảng được chỉ ra dưới đây?</div>
+            <div class="img-container">
+                <svg width="300" height="200" viewBox="-4 -5 8 10">
+                    <line x1="-4" y1="0" x2="4" y2="0" stroke="#64748b" stroke-width="0.1"/>
+                    <line x1="0" y1="-5" x2="0" y2="5" stroke="#64748b" stroke-width="0.1"/>
+                    <path d="M -3 4 Q -2 -5 0 -1 T 3 4" fill="none" stroke="#2563eb" stroke-width="0.25"/>
+                    <circle cx="-2" cy="-4" r="0.2" fill="#dc2626"/><text x="-2.5" y="-4.3" font-size="0.6">-2</text>
+                    <circle cx="1" cy="-2" r="0.2" fill="#dc2626"/><text x="1.2" y="-2.3" font-size="0.6">1</text>
+                </svg>
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A. Khoảng từ âm 2 đến 1</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B. Khoảng từ 1 đến dương vô cùng</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C. Khoảng từ âm vô cùng đến âm 2</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D. Khoảng từ âm 1 đến 2</label>
+            </div>
+            <div class="explanation" id="exp1">Lời giải: Đồ thị hàm số đi xuống từ điểm x = -2 đến x = 1, do đó hàm số nghịch biến trên khoảng (âm 2; 1). Đáp án đúng: A.</div>
+        </div>
+
+        <!-- Câu 2 -->
+        <div class="question-card" id="q2">
+            <div class="q-number">Câu 2</div>
+            <div class="q-text">Cho hàm số y = (2x + 1) / (x - 2). Mệnh đề nào dưới đây là đúng?</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A. Hàm số nghịch biến trên từng khoảng xác định</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B. Hàm số đồng biến trên từng khoảng xác định</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C. Hàm số đồng biến trên toàn bộ tập số thực</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D. Hàm số nghịch biến trên toàn bộ tập số thực</label>
+            </div>
+            <div class="explanation" id="exp2">Lời giải: Ta có đạo hàm y' = [(2)(-2) - (1)(1)] / (x - 2)^2 = -5 / (x - 2)^2 < 0 với mọi x khác 2. Do đó hàm số nghịch biến trên từng khoảng (âm vô cùng; 2) và (2; dương vô cùng). Đáp án đúng: A.</div>
+        </div>
+
+        <!-- Câu 3 -->
+        <div class="question-card" id="q3">
+            <div class="q-number">Câu 3</div>
+            <div class="q-text">Đường tiệm cận đứng của đồ thị hàm số y = (3x + 2) / (x - 4) là đường thẳng nào?</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A. Đường thẳng x = 4</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B. Đường thẳng y = 3</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C. Đường thẳng x = -4</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D. Đường thẳng y = 4</label>
+            </div>
+            <div class="explanation" id="exp3">Lời giải: Đường tiệm cận đứng là nghiệm của mẫu số: x - 4 = 0 tương đương x = 4. Đáp án đúng: A.</div>
+        </div>
+
+        <!-- Câu 4 -->
+        <div class="question-card" id="q4">
+            <div class="q-number">Câu 4</div>
+            <div class="q-text">Đường tiệm cận ngang của đồ thị hàm số y = (5x - 1) / (x + 3) là đường thẳng nào?</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A. Đường thẳng y = 5</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B. Đường thẳng x = -3</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C. Đường thẳng y = -1</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D. Đường thẳng y = 1/5</label>
+            </div>
+            <div class="explanation" id="exp4">Lời giải: Đường tiệm cận ngang có dạng y = hệ số của x trên tử / hệ số của x dưới mẫu = 5 / 1 = 5. Đáp án đúng: A.</div>
+        </div>
+
+
+        <!-- PHẦN 2 -->
+        <div class="section-title">PHẦN 2: Trắc nghiệm Đúng / Sai (Mỗi câu gồm 4 khẳng định a, b, c, d)</div>
+
+        <div class="question-card">
+            <div class="q-number">Câu 1 (Đúng/Sai)</div>
+            <div class="q-text">Cho hàm số y = f(x) = x^3 - 3x + 2. Xét tính Đúng hoặc Sai của các khẳng định sau:</div>
+            <table class="tf-table">
+                <thead>
+                    <tr><th>Khẳng định</th><th>Lựa chọn</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>a) Hàm số đã cho đạt cực đại tại điểm x = -1.</td>
+                        <td>
+                            <div class="tf-options">
+                                <label><input type="radio" name="q2_1_a" value="D"> Đúng</label>
+                                <label><input type="radio" name="q2_1_a" value="S"> Sai</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>b) Giá trị cực tiểu của hàm số bằng 0.</td>
+                        <td>
+                            <div class="tf-options">
+                                <label><input type="radio" name="q2_1_b" value="D"> Đúng</label>
+                                <label><input type="radio" name="q2_1_b" value="S"> Sai</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>c) Hàm số đồng biến trên khoảng từ âm 1 đến 1.</td>
+                        <td>
+                            <div class="tf-options">
+                                <label><input type="radio" name="q2_1_c" value="D"> Đúng</label>
+                                <label><input type="radio" name="q2_1_c" value="S"> Sai</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>d) Đồ thị hàm số có hai điểm cực trị nằm về hai phía của trục tung.</td>
+                        <td>
+                            <div class="tf-options">
+                                <label><input type="radio" name="q2_1_d" value="D"> Đúng</label>
+                                <label><input type="radio" name="q2_1_d" value="S"> Sai</label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="explanation" id="exp_tf1">
+                Lời giải:<br>
+                - Đạo hàm f'(x) = 3x^2 - 3 = 0 có hai nghiệm x = -1 và x = 1.<br>
+                - Tại x = -1 hàm số đạt cực đại, y(-1) = 4 -> a Đúng.<br>
+                - Tại x = 1 hàm số đạt cực tiểu, y(1) = 0 -> b Đúng.<br>
+                - Trong khoảng (-1; 1) f'(x) < 0 nên hàm số nghịch biến -> c Sai.<br>
+                - Hai điểm cực trị có hoành độ x = -1 (âm) và x = 1 (dương) nên nằm về 2 phía trục tung -> d Đúng.
+            </div>
+        </div>
+
+
+        <!-- PHẦN 3 -->
+        <div class="section-title">PHẦN 3: Trắc nghiệm trả lời ngắn (Nhập đáp án là số)</div>
+
+        <!-- Câu 1 Phần 3 -->
+        <div class="question-card">
+            <div class="q-number">Câu 1 (Điền số)</div>
+            <div class="q-text">Cho hàm số f(x) = x^3 + 3x - 4. Gọi M là giá trị lớn nhất và m là giá trị nhỏ nhất của hàm số trên đoạn từ 1 đến 3. Tính giá trị của biểu thức M + m.</div>
+            <input type="text" class="short-answer-input" id="q3_1" placeholder="Nhập kết quả số...">
+            <div class="explanation" id="exp_sa1">Lời giải: Hàm số f(x) đồng biến trên đoạn [1; 3] vì f'(x) = 3x^2 + 3 > 0. Do đó giá trị nhỏ nhất m = f(1) = 0; giá trị lớn nhất M = f(3) = 32. Vậy M + m = 32 + 0 = 32.</div>
+        </div>
+
+        <!-- Câu 2 Phần 3 -->
+        <div class="question-card">
+            <div class="q-number">Câu 2 (Điền số)</div>
+            <div class="q-text">Cho đồ thị hàm số y = (x^2 + x - 1) / (x - 1). Đồ thị có tâm đối xứng là điểm I(a; b). Tính giá trị của biểu thức a + b.</div>
+            <input type="text" class="short-answer-input" id="q3_2" placeholder="Nhập kết quả số...">
+            <div class="explanation" id="exp_sa2">Lời giải: Ta biến đổi y = x + 2 + 1 / (x - 1). Tiệm cận đứng x = 1 (a = 1), tiệm cận xiên y = x + 2. Giao điểm hai đường tiệm cận là tâm đối xứng I(1; 3) nên b = 3. Vậy a + b = 1 + 3 = 4.</div>
+        </div>
+
+        <!-- Câu 3 Phần 3 -->
+        <div class="question-card">
+            <div class="q-number">Câu 3 (Điền số)</div>
+            <div class="q-text">Một vật chuyển động trên đường thẳng có phương trình quãng đường s(t) = t^3 - 3t^2 + 7t - 2 (với t tính bằng giây, s tính bằng mét). Tính vận tốc của vật tại thời điểm t = 2 giây.</div>
+            <input type="text" class="short-answer-input" id="q3_3" placeholder="Nhập kết quả số...">
+            <div class="explanation" id="exp_sa3">Lời giải: Vận tốc v(t) chính là đạo hàm của quãng đường v(t) = s'(t) = 3t^2 - 6t + 7. Tại t = 2, v(2) = 3*(2^2) - 6*2 + 7 = 7 m/s.</div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">NỘP BÀI VÀ XEM ĐÁP ÁN</button>
+    </form>
+
+    <div class="result-box" id="resultBox">
+        <h2>KẾT QUẢ BÀI CỦA BẠN</h2>
+        <div class="result-score" id="scoreText">0 / 10 Điểm</div>
+        <p id="feedbackText">Hãy xem lại lời giải chi tiết bên dưới mỗi câu hỏi nhé!</p>
+    </div>
+</div>
+
+<script>
+    // Đếm ngược thời gian làm bài 90 phút
+    let timeLeft = 90 * 60;
+    const timerElem = document.getElementById('timer');
+    const timerInterval = setInterval(() => {
+        let mins = Math.floor(timeLeft / 60);
+        let secs = timeLeft % 60;
+        timerElem.textContent = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert("Đã hết thời gian làm bài!");
+            checkAnswers();
+        }
+        timeLeft--;
+    }, 1000);
+
+    function checkAnswers() {
+        let totalScore = 0;
+
+        // Kiểm tra Phần 1 (Mỗi câu 0.5 điểm)
+        if (document.querySelector('input[name="q1"]:checked')?.value === 'A') totalScore += 0.5;
+        if (document.querySelector('input[name="q2"]:checked')?.value === 'A') totalScore += 0.5;
+        if (document.querySelector('input[name="q3"]:checked')?.value === 'A') totalScore += 0.5;
+        if (document.querySelector('input[name="q4"]:checked')?.value === 'A') totalScore += 0.5;
+
+        // Kiểm tra Phần 2 (Mỗi ý đúng 0.25 điểm)
+        if (document.querySelector('input[name="q2_1_a"]:checked')?.value === 'D') totalScore += 0.25;
+        if (document.querySelector('input[name="q2_1_b"]:checked')?.value === 'D') totalScore += 0.25;
+        if (document.querySelector('input[name="q2_1_c"]:checked')?.value === 'S') totalScore += 0.25;
+        if (document.querySelector('input[name="q2_1_d"]:checked')?.value === 'D') totalScore += 0.25;
+
+        // Kiểm tra Phần 3 (Mỗi câu 1 điểm)
+        if (document.getElementById('q3_1').value.trim() === '32') totalScore += 1;
+        if (document.getElementById('q3_2').value.trim() === '4') totalScore += 1;
+        if (document.getElementById('q3_3').value.trim() === '7') totalScore += 1;
+
+        // Hiển thị kết quả
+        document.getElementById('resultBox').style.display = 'block';
+        document.getElementById('scoreText').textContent = `${totalScore} / 5.0 Điểm`;
+
+        // Hiện tất cả lời giải
+        const explanations = document.querySelectorAll('.explanation');
+        explanations.forEach(exp => exp.style.display = 'block');
+
+        // Cuộn màn hình xuống phần kết quả
+        document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
 </body>
 </html>
