@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn Tập Lịch Sử 12 Cùng Vinh dz - Trắc Nghiệm Tương Tác</title>
+    <title>Ôn Tập Lịch Sử 12 - Trắc Nghiệm Tương Tác</title>
     <style>
         :root {
             --primary: #1e3a8a;
@@ -125,6 +125,10 @@
             margin-top: 10px;
         }
 
+        .tf-table tr {
+            transition: background-color 0.2s ease;
+        }
+
         .tf-table th, .tf-table td {
             padding: 10px 12px;
             border-bottom: 1px solid var(--border);
@@ -212,7 +216,7 @@
         }
 
         .score-display {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--primary);
         }
@@ -221,7 +225,7 @@
 <body>
 
 <div class="container">
-    <h1>ÔN TẬP LỊCH SỬ 12 Cùng Zin Dz</h1>
+    <h1>ÔN TẬP LỊCH SỬ 12</h1>
 
     <!-- BÀI 1 -->
     <div class="lesson-header">BÀI 1: LIÊN HỢP QUỐC</div>
@@ -1246,8 +1250,8 @@
                 <td>d) Sự phát triển mạnh mẽ của Tây Âu là nguyên nhân chủ quan mang tính quyết định làm giảm ảnh hưởng của Mỹ ở châu Âu.</td>
                 <td width="120">
                     <div class="tf-options">
-                        <label><input type="radio" name="b3_tf4_d" value="V"> T</label>
                         <label><input type="radio" name="b3_tf4_d" value="S"> S</label>
+                        <label><input type="radio" name="b3_tf4_d" value="Đ"> Đ</label>
                     </div>
                 </td>
             </tr>
@@ -1263,7 +1267,7 @@
 </div>
 
 <script>
-    // Đáp án Đúng / Sai
+    // Đáp án Đúng / Sai chi tiết cho từng ý (a, b, c, d)
     const tfAnswers = {
         "b1_tf1_a": "S", "b1_tf1_b": "S", "b1_tf1_c": "Đ", "b1_tf1_d": "Đ",
         "b1_tf2_a": "Đ", "b1_tf2_b": "Đ", "b1_tf2_c": "S", "b1_tf2_d": "S",
@@ -1276,13 +1280,12 @@
         "b3_tf1_a": "S", "b3_tf1_b": "Đ", "b3_tf1_c": "S", "b3_tf1_d": "Đ",
         "b3_tf2_a": "Đ", "b3_tf2_b": "S", "b3_tf2_c": "S", "b3_tf2_d": "Đ",
         "b3_tf3_a": "Đ", "b3_tf3_b": "Đ", "b3_tf3_c": "Đ", "b3_tf3_d": "S",
-        "b3_tf4_a": "Đ", "b3_tf4_b": "Đ", "b3_tf4_c": "Đ", "b3_tf4_d": "V"
+        "b3_tf4_a": "Đ", "b3_tf4_b": "Đ", "b3_tf4_c": "Đ", "b3_tf4_d": "S"
     };
 
     function gradeQuiz() {
         let mcScore = 0;
         let totalMC = 0;
-
         let tfScore = 0;
         let totalTF = 0;
 
@@ -1318,18 +1321,50 @@
             card.appendChild(expDiv);
         });
 
-        // 2. Chấm Phần II: Trắc nghiệm Đúng / Sai
-        for (const [key, correctVal] of Object.entries(tfAnswers)) {
-            totalTF++;
-            const radioSelected = document.querySelector(`input[name="${key}"]:checked`);
-            if (radioSelected && radioSelected.value === correctVal) {
-                tfScore++;
-            }
-        }
+        // 2. Chấm Phần II: Trắc nghiệm Đúng / Sai (Đổi màu từng dòng)
+        const tfCards = document.querySelectorAll('.tf-card');
+        tfCards.forEach(card => {
+            const rows = card.querySelectorAll('.tf-table tr');
+            card.classList.remove('correct', 'incorrect');
+            
+            const oldExp = card.querySelector('.explanation');
+            if (oldExp) oldExp.remove();
 
-        // 3. Hiển thị điểm số tổng hợp
+            let cardAllCorrect = true;
+
+            rows.forEach(row => {
+                const radioChecked = row.querySelector('input[type="radio"]:checked');
+                const firstRadio = row.querySelector('input[type="radio"]');
+                if (!firstRadio) return;
+                
+                totalTF++;
+                const nameKey = firstRadio.getAttribute('name');
+                const correctVal = tfAnswers[nameKey];
+
+                if (radioChecked) {
+                    if (radioChecked.value === correctVal) {
+                        tfScore++;
+                        row.style.backgroundColor = "rgba(22, 163, 74, 0.15)"; // Xanh lá nếu chọn đúng
+                    } else {
+                        cardAllCorrect = false;
+                        row.style.backgroundColor = "rgba(220, 38, 38, 0.15)"; // Đỏ nếu chọn sai
+                    }
+                } else {
+                    cardAllCorrect = false;
+                    row.style.backgroundColor = "rgba(220, 38, 38, 0.15)"; // Đỏ nếu chưa chọn
+                }
+            });
+
+            if (cardAllCorrect) {
+                card.classList.add('correct');
+            } else {
+                card.classList.add('incorrect');
+            }
+        });
+
+        // 3. Hiển thị điểm số tổng hợp ở thanh cố định
         const scoreDisplay = document.getElementById('scoreDisplay');
-        scoreDisplay.innerText = `Kết quả: Trắc nghiệm ${mcScore}/${totalMC} câu | Đúng/Sai ${tfScore}/${totalTF} ý`;
+        scoreDisplay.innerText = `Kết quả: Trắc nghiệm ${mcScore}/${totalMC} | Đúng/Sai ${tfScore}/${totalTF} ý`;
         
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
