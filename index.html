@@ -3,358 +3,1335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đề Ôn Tập Kiểm Tra Giữa Kỳ 1 - Toán 12</title>
+    <title>Ôn Tập Lịch Sử 12 - Trắc Nghiệm Tương Tác</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
             --bg: #f8fafc;
             --card-bg: #ffffff;
-            --text: #1e293b;
+            --text: #0f172a;
             --border: #e2e8f0;
             --success: #16a34a;
+            --success-bg: #f0fdf4;
             --danger: #dc2626;
+            --danger-bg: #fef2f2;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; }
-        .container { max-width: 850px; margin: 0 auto; }
-        
-        .header {
-            background: var(--card-bg);
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            margin-bottom: 24px;
-            border-top: 5px solid var(--primary);
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px 10px;
         }
-        .header h1 { font-size: 20px; color: #0f172a; margin-bottom: 8px; text-transform: uppercase; }
-        .header p { color: #64748b; font-size: 14px; }
-        
-        .timer-box {
-            position: sticky;
-            top: 15px;
-            z-index: 100;
-            background: #0f172a;
-            color: #fff;
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 25px 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        .lesson-header {
+            background: var(--primary);
+            color: white;
             padding: 12px 20px;
-            border-radius: 30px;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #475569;
+            border-left: 4px solid var(--primary-light);
+            padding-left: 10px;
+            margin: 20px 0 15px 0;
+            text-transform: uppercase;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .option-item:hover {
+            background-color: #f1f5f9;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.1);
+        }
+
+        /* Styling cho Phần II: Đúng / Sai */
+        .source-box {
+            background-color: #f1f5f9;
+            border-left: 4px solid #94a3b8;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            color: #334155;
+        }
+
+        .tf-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .tf-table th, .tf-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .tf-table th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .tf-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .tf-options label {
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Trạng thái Kết quả */
+        .card.correct {
+            border-color: var(--success);
+            background-color: var(--success-bg);
+        }
+
+        .card.incorrect {
+            border-color: var(--danger);
+            background-color: var(--danger-bg);
+        }
+
+        .explanation {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .card.correct .explanation {
+            color: var(--success);
+            background-color: rgba(22, 163, 74, 0.1);
+        }
+
+        .card.incorrect .explanation {
+            color: var(--danger);
+            background-color: rgba(220, 38, 38, 0.1);
+        }
+
+        /* Sticky Action Bar */
+        .footer-bar {
+            position: sticky;
+            bottom: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
-        }
-        .timer-text { font-weight: bold; font-size: 18px; color: #38bdf8; }
-
-        .section-title {
-            background: #e0e7ff;
-            color: #3730a3;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-weight: bold;
-            margin: 32px 0 16px 0;
-            font-size: 16px;
-        }
-
-        .question-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            margin-top: 30px;
             border: 1px solid var(--border);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .q-number { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 16px; }
-        .q-text { font-size: 15px; margin-bottom: 15px; color: #334155; }
-        
-        .options { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        @media (min-width: 640px) { .options { grid-template-columns: 1fr 1fr; } }
-        
-        .option-label {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
-        }
-        .option-label:hover { border-color: var(--primary); background: #eff6ff; }
-        .option-label input { margin-right: 12px; accent-color: var(--primary); }
 
-        .tf-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .tf-table th, .tf-table td { border: 1px solid var(--border); padding: 10px; text-align: left; font-size: 14px; }
-        .tf-table th { background: #f1f5f9; text-align: center; }
-        .tf-options { display: flex; gap: 15px; justify-content: center; }
-
-        .short-answer-input {
-            width: 100%;
-            max-width: 250px;
-            padding: 10px 14px;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-        .short-answer-input:focus { border-color: var(--primary); }
-
-        .img-container { text-align: center; margin: 15px 0; background: #fafafa; padding: 10px; border-radius: 8px; border: 1px dashed #cbd5e1; }
-        .img-container svg { max-width: 100%; height: auto; }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background: var(--primary);
+        .btn-submit {
+            background-color: var(--primary-light);
             color: white;
             border: none;
+            padding: 12px 28px;
             border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 1.05rem;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 30px;
             transition: background 0.2s;
         }
-        .submit-btn:hover { background: var(--primary-hover); }
 
-        .result-box {
-            display: none;
-            background: #f0fdf4;
-            border: 2px solid var(--success);
-            padding: 24px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 24px;
+        .btn-submit:hover {
+            background-color: var(--primary);
         }
-        .result-score { font-size: 32px; font-weight: bold; color: var(--success); }
-        .explanation { display: none; margin-top: 12px; padding: 12px; background: #fffbe6; border-left: 4px solid #f59e0b; border-radius: 4px; font-size: 14px; text-align: left; }
+
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>Đề Kiểm Tra Môn Toán - Lớp 12 (Thay Số Luyện Tập)</h1>
-        <p>Thời gian làm bài: 90 phút | Đề gồm đầy đủ 3 phần trắc nghiệm</p>
+    <h1>ÔN TẬP LỊCH SỬ 12</h1>
+
+    <!-- BÀI 1 -->
+    <div class="lesson-header">BÀI 1: LIÊN HỢP QUỐC</div>
+    <div class="section-header">Phần I. Câu hỏi trắc nghiệm chọn 1 phương án</div>
+
+    <div class="card" data-qid="b1_q1" data-answer="D">
+        <div class="question-text">Câu 1. Ngày 1-1-1946, có bao nhiêu nước chống phát xít ký bản Tuyên bố Liên hợp quốc?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q1" value="A"> A. 30 nước.</label>
+            <label class="option-item"><input type="radio" name="b1_q1" value="B"> B. 26 nước.</label>
+            <label class="option-item"><input type="radio" name="b1_q1" value="C"> C. 15 nước.</label>
+            <label class="option-item"><input type="radio" name="b1_q1" value="D"> D. 50 nước.</label>
+        </div>
     </div>
 
-    <div class="timer-box">
-        <span>Thời gian còn lại:</span>
-        <span class="timer-text" id="timer">90:00</span>
+    <div class="card" data-qid="b1_q2" data-answer="D">
+        <div class="question-text">Câu 2. Tại Hội nghị Tê-hê-ran, ba nước nào khẳng định quyết tâm thành lập Liên hợp quốc?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q2" value="A"> A. Liên Xô, Mỹ, Trung Quốc.</label>
+            <label class="option-item"><input type="radio" name="b1_q2" value="B"> B. Nga, Pháp, Việt Nam.</label>
+            <label class="option-item"><input type="radio" name="b1_q2" value="C"> C. Liên Xô, Anh, Nhật Bản.</label>
+            <label class="option-item"><input type="radio" name="b1_q2" value="D"> D. Liên Xô, Mỹ, Anh.</label>
+        </div>
     </div>
 
-    <form id="examForm">
-
-        <!-- PHẦN 1 -->
-        <div class="section-title">PHẦN 1: Trắc nghiệm chọn 1 đáp án đúng (Từ câu 1 đến câu 12)</div>
-
-        <!-- Câu 1 -->
-        <div class="question-card" id="q1">
-            <div class="q-number">Câu 1</div>
-            <div class="q-text">Cho hàm số y = f(x) có đồ thị như hình vẽ bên dưới. Hàm số đã cho <b>nghịch biến</b> trên khoảng nào trong các khoảng được chỉ ra dưới đây?</div>
-            <div class="img-container">
-                <svg width="300" height="200" viewBox="-4 -5 8 10">
-                    <line x1="-4" y1="0" x2="4" y2="0" stroke="#64748b" stroke-width="0.1"/>
-                    <line x1="0" y1="-5" x2="0" y2="5" stroke="#64748b" stroke-width="0.1"/>
-                    <path d="M -3 4 Q -2 -5 0 -1 T 3 4" fill="none" stroke="#2563eb" stroke-width="0.25"/>
-                    <circle cx="-2" cy="-4" r="0.2" fill="#dc2626"/><text x="-2.5" y="-4.3" font-size="0.6">-2</text>
-                    <circle cx="1" cy="-2" r="0.2" fill="#dc2626"/><text x="1.2" y="-2.3" font-size="0.6">1</text>
-                </svg>
-            </div>
-            <div class="options">
-                <label class="option-label"><input type="radio" name="q1" value="A"> A. Khoảng từ âm 2 đến 1</label>
-                <label class="option-label"><input type="radio" name="q1" value="B"> B. Khoảng từ 1 đến dương vô cùng</label>
-                <label class="option-label"><input type="radio" name="q1" value="C"> C. Khoảng từ âm vô cùng đến âm 2</label>
-                <label class="option-label"><input type="radio" name="q1" value="D"> D. Khoảng từ âm 1 đến 2</label>
-            </div>
-            <div class="explanation" id="exp1">Lời giải: Đồ thị hàm số đi xuống từ điểm x = -2 đến x = 1, do đó hàm số nghịch biến trên khoảng (âm 2; 1). Đáp án đúng: A.</div>
+    <div class="card" data-qid="b1_q3" data-answer="A">
+        <div class="question-text">Câu 3. Lễ kí Hiến chương Liên hợp quốc được tổ chức tại?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q3" value="A"> A. Xan Phran-xi-xcô (Mỹ).</label>
+            <label class="option-item"><input type="radio" name="b1_q3" value="B"> B. I-an-ta (Liên Xô).</label>
+            <label class="option-item"><input type="radio" name="b1_q3" value="C"> C. Tê-hê-ran (I-ran).</label>
+            <label class="option-item"><input type="radio" name="b1_q3" value="D"> D. Niu Oóc (Mỹ).</label>
         </div>
-
-        <!-- Câu 2 -->
-        <div class="question-card" id="q2">
-            <div class="q-number">Câu 2</div>
-            <div class="q-text">Cho hàm số y = (2x + 1) / (x - 2). Mệnh đề nào dưới đây là đúng?</div>
-            <div class="options">
-                <label class="option-label"><input type="radio" name="q2" value="A"> A. Hàm số nghịch biến trên từng khoảng xác định</label>
-                <label class="option-label"><input type="radio" name="q2" value="B"> B. Hàm số đồng biến trên từng khoảng xác định</label>
-                <label class="option-label"><input type="radio" name="q2" value="C"> C. Hàm số đồng biến trên toàn bộ tập số thực</label>
-                <label class="option-label"><input type="radio" name="q2" value="D"> D. Hàm số nghịch biến trên toàn bộ tập số thực</label>
-            </div>
-            <div class="explanation" id="exp2">Lời giải: Ta có đạo hàm y' = [(2)(-2) - (1)(1)] / (x - 2)^2 = -5 / (x - 2)^2 < 0 với mọi x khác 2. Do đó hàm số nghịch biến trên từng khoảng (âm vô cùng; 2) và (2; dương vô cùng). Đáp án đúng: A.</div>
-        </div>
-
-        <!-- Câu 3 -->
-        <div class="question-card" id="q3">
-            <div class="q-number">Câu 3</div>
-            <div class="q-text">Đường tiệm cận đứng của đồ thị hàm số y = (3x + 2) / (x - 4) là đường thẳng nào?</div>
-            <div class="options">
-                <label class="option-label"><input type="radio" name="q3" value="A"> A. Đường thẳng x = 4</label>
-                <label class="option-label"><input type="radio" name="q3" value="B"> B. Đường thẳng y = 3</label>
-                <label class="option-label"><input type="radio" name="q3" value="C"> C. Đường thẳng x = -4</label>
-                <label class="option-label"><input type="radio" name="q3" value="D"> D. Đường thẳng y = 4</label>
-            </div>
-            <div class="explanation" id="exp3">Lời giải: Đường tiệm cận đứng là nghiệm của mẫu số: x - 4 = 0 tương đương x = 4. Đáp án đúng: A.</div>
-        </div>
-
-        <!-- Câu 4 -->
-        <div class="question-card" id="q4">
-            <div class="q-number">Câu 4</div>
-            <div class="q-text">Đường tiệm cận ngang của đồ thị hàm số y = (5x - 1) / (x + 3) là đường thẳng nào?</div>
-            <div class="options">
-                <label class="option-label"><input type="radio" name="q4" value="A"> A. Đường thẳng y = 5</label>
-                <label class="option-label"><input type="radio" name="q4" value="B"> B. Đường thẳng x = -3</label>
-                <label class="option-label"><input type="radio" name="q4" value="C"> C. Đường thẳng y = -1</label>
-                <label class="option-label"><input type="radio" name="q4" value="D"> D. Đường thẳng y = 1/5</label>
-            </div>
-            <div class="explanation" id="exp4">Lời giải: Đường tiệm cận ngang có dạng y = hệ số của x trên tử / hệ số của x dưới mẫu = 5 / 1 = 5. Đáp án đúng: A.</div>
-        </div>
-
-
-        <!-- PHẦN 2 -->
-        <div class="section-title">PHẦN 2: Trắc nghiệm Đúng / Sai (Mỗi câu gồm 4 khẳng định a, b, c, d)</div>
-
-        <div class="question-card">
-            <div class="q-number">Câu 1 (Đúng/Sai)</div>
-            <div class="q-text">Cho hàm số y = f(x) = x^3 - 3x + 2. Xét tính Đúng hoặc Sai của các khẳng định sau:</div>
-            <table class="tf-table">
-                <thead>
-                    <tr><th>Khẳng định</th><th>Lựa chọn</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>a) Hàm số đã cho đạt cực đại tại điểm x = -1.</td>
-                        <td>
-                            <div class="tf-options">
-                                <label><input type="radio" name="q2_1_a" value="D"> Đúng</label>
-                                <label><input type="radio" name="q2_1_a" value="S"> Sai</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>b) Giá trị cực tiểu của hàm số bằng 0.</td>
-                        <td>
-                            <div class="tf-options">
-                                <label><input type="radio" name="q2_1_b" value="D"> Đúng</label>
-                                <label><input type="radio" name="q2_1_b" value="S"> Sai</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>c) Hàm số đồng biến trên khoảng từ âm 1 đến 1.</td>
-                        <td>
-                            <div class="tf-options">
-                                <label><input type="radio" name="q2_1_c" value="D"> Đúng</label>
-                                <label><input type="radio" name="q2_1_c" value="S"> Sai</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>d) Đồ thị hàm số có hai điểm cực trị nằm về hai phía của trục tung.</td>
-                        <td>
-                            <div class="tf-options">
-                                <label><input type="radio" name="q2_1_d" value="D"> Đúng</label>
-                                <label><input type="radio" name="q2_1_d" value="S"> Sai</label>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="explanation" id="exp_tf1">
-                Lời giải:<br>
-                - Đạo hàm f'(x) = 3x^2 - 3 = 0 có hai nghiệm x = -1 và x = 1.<br>
-                - Tại x = -1 hàm số đạt cực đại, y(-1) = 4 -> a Đúng.<br>
-                - Tại x = 1 hàm số đạt cực tiểu, y(1) = 0 -> b Đúng.<br>
-                - Trong khoảng (-1; 1) f'(x) < 0 nên hàm số nghịch biến -> c Sai.<br>
-                - Hai điểm cực trị có hoành độ x = -1 (âm) và x = 1 (dương) nên nằm về 2 phía trục tung -> d Đúng.
-            </div>
-        </div>
-
-
-        <!-- PHẦN 3 -->
-        <div class="section-title">PHẦN 3: Trắc nghiệm trả lời ngắn (Nhập đáp án là số)</div>
-
-        <!-- Câu 1 Phần 3 -->
-        <div class="question-card">
-            <div class="q-number">Câu 1 (Điền số)</div>
-            <div class="q-text">Cho hàm số f(x) = x^3 + 3x - 4. Gọi M là giá trị lớn nhất và m là giá trị nhỏ nhất của hàm số trên đoạn từ 1 đến 3. Tính giá trị của biểu thức M + m.</div>
-            <input type="text" class="short-answer-input" id="q3_1" placeholder="Nhập kết quả số...">
-            <div class="explanation" id="exp_sa1">Lời giải: Hàm số f(x) đồng biến trên đoạn [1; 3] vì f'(x) = 3x^2 + 3 > 0. Do đó giá trị nhỏ nhất m = f(1) = 0; giá trị lớn nhất M = f(3) = 32. Vậy M + m = 32 + 0 = 32.</div>
-        </div>
-
-        <!-- Câu 2 Phần 3 -->
-        <div class="question-card">
-            <div class="q-number">Câu 2 (Điền số)</div>
-            <div class="q-text">Cho đồ thị hàm số y = (x^2 + x - 1) / (x - 1). Đồ thị có tâm đối xứng là điểm I(a; b). Tính giá trị của biểu thức a + b.</div>
-            <input type="text" class="short-answer-input" id="q3_2" placeholder="Nhập kết quả số...">
-            <div class="explanation" id="exp_sa2">Lời giải: Ta biến đổi y = x + 2 + 1 / (x - 1). Tiệm cận đứng x = 1 (a = 1), tiệm cận xiên y = x + 2. Giao điểm hai đường tiệm cận là tâm đối xứng I(1; 3) nên b = 3. Vậy a + b = 1 + 3 = 4.</div>
-        </div>
-
-        <!-- Câu 3 Phần 3 -->
-        <div class="question-card">
-            <div class="q-number">Câu 3 (Điền số)</div>
-            <div class="q-text">Một vật chuyển động trên đường thẳng có phương trình quãng đường s(t) = t^3 - 3t^2 + 7t - 2 (với t tính bằng giây, s tính bằng mét). Tính vận tốc của vật tại thời điểm t = 2 giây.</div>
-            <input type="text" class="short-answer-input" id="q3_3" placeholder="Nhập kết quả số...">
-            <div class="explanation" id="exp_sa3">Lời giải: Vận tốc v(t) chính là đạo hàm của quãng đường v(t) = s'(t) = 3t^2 - 6t + 7. Tại t = 2, v(2) = 3*(2^2) - 6*2 + 7 = 7 m/s.</div>
-        </div>
-
-        <button type="button" class="submit-btn" onclick="checkAnswers()">NỘP BÀI VÀ XEM ĐÁP ÁN</button>
-    </form>
-
-    <div class="result-box" id="resultBox">
-        <h2>KẾT QUẢ BÀI CỦA BẠN</h2>
-        <div class="result-score" id="scoreText">0 / 10 Điểm</div>
-        <p id="feedbackText">Hãy xem lại lời giải chi tiết bên dưới mỗi câu hỏi nhé!</p>
     </div>
+
+    <div class="card" data-qid="b1_q4" data-answer="A">
+        <div class="question-text">Câu 4. Ngày 24-10-1945, Liên hợp quốc chính thức thành lập với bao nhiêu nước thành viên tham gia?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q4" value="A"> A. 51 nước.</label>
+            <label class="option-item"><input type="radio" name="b1_q4" value="B"> B. 26 nước.</label>
+            <label class="option-item"><input type="radio" name="b1_q4" value="C"> C. 40 nước.</label>
+            <label class="option-item"><input type="radio" name="b1_q4" value="D"> D. 50 nước.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q5" data-answer="D">
+        <div class="question-text">Câu 5. Mục tiêu quan trọng nhất và là cơ sở để thực hiện các mục tiêu khác của Liên hợp quốc là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q5" value="A"> A. thúc đẩy quan hệ hữu nghị giữa các dân tộc.</label>
+            <label class="option-item"><input type="radio" name="b1_q5" value="B"> B. thúc đẩy hợp tác quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b1_q5" value="C"> C. trung tâm điều hòa các nỗ lực quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b1_q5" value="D"> D. duy trì hòa bình và an ninh quốc tế.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q6" data-answer="D">
+        <div class="question-text">Câu 6. Tuyên ngôn Nhân quyền được Đại hội đồng Liên hợp quốc thông qua vào:</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q6" value="A"> A. năm 2000.</label>
+            <label class="option-item"><input type="radio" name="b1_q6" value="B"> B. năm 2015.</label>
+            <label class="option-item"><input type="radio" name="b1_q6" value="C"> C. năm 1951.</label>
+            <label class="option-item"><input type="radio" name="b1_q6" value="D"> D. năm 1948.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q7" data-answer="A">
+        <div class="question-text">Câu 7. Hội nghị nào đã đặt nền tảng cho sự ra đời của tổ chức Liên hợp quốc?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q7" value="A"> A. Hội nghị I-an-ta.</label>
+            <label class="option-item"><input type="radio" name="b1_q7" value="B"> B. Hội nghị Xan Phran-xi-xcô.</label>
+            <label class="option-item"><input type="radio" name="b1_q7" value="C"> C. Hội nghị Pốt-xdam.</label>
+            <label class="option-item"><input type="radio" name="b1_q7" value="D"> D. Hội nghị Pa-ri.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q8" data-answer="C">
+        <div class="question-text">Câu 8. Tổ chức nào dưới đây là tiền thân của tổ chức Liên hợp quốc ngày nay?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q8" value="A"> A. Liên minh tiến bộ quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b1_q8" value="B"> B. Đệ tam quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b1_q8" value="C"> C. Hội quốc liên.</label>
+            <label class="option-item"><input type="radio" name="b1_q8" value="D"> D. Khối đồng minh chống phát xít.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q9" data-answer="A">
+        <div class="question-text">Câu 9. Ngày 1/1/1942, đại diện của 26 nước đã ký văn kiện nào sau đây?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q9" value="A"> A. Tuyên bố về Liên hợp quốc.</label>
+            <label class="option-item"><input type="radio" name="b1_q9" value="B"> B. Thành lập khối Liên minh.</label>
+            <label class="option-item"><input type="radio" name="b1_q9" value="C"> C. Xóa bỏ hệ thống thuộc địa.</label>
+            <label class="option-item"><input type="radio" name="b1_q9" value="D"> D. Chấm dứt Chiến tranh lạnh.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q10" data-answer="A">
+        <div class="question-text">Câu 10. Mục tiêu và nguyên tắc hoạt động của Liên hợp quốc được quy định bởi văn kiện nào?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q10" value="A"> A. Hiến chương.</label>
+            <label class="option-item"><input type="radio" name="b1_q10" value="B"> B. Hiến pháp.</label>
+            <label class="option-item"><input type="radio" name="b1_q10" value="C"> C. Tuyên ngôn.</label>
+            <label class="option-item"><input type="radio" name="b1_q10" value="D"> D. Hiệp định.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q11" data-answer="D">
+        <div class="question-text">Câu 11. Đâu là một trong những nội dung của mục tiêu, hành động mang tính toàn cầu đến năm 2030 của Liên hợp quốc?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q11" value="A"> A. Chống nạn thất nghiệp.</label>
+            <label class="option-item"><input type="radio" name="b1_q11" value="B"> B. Quyền tự do chính trị.</label>
+            <label class="option-item"><input type="radio" name="b1_q11" value="C"> C. Chống bạo lực gia đình.</label>
+            <label class="option-item"><input type="radio" name="b1_q11" value="D"> D. Chất lượng giáo dục.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q12" data-answer="A">
+        <div class="question-text">Câu 12. Đâu không phải là mục tiêu của Liên hợp quốc được quy định trong Hiến chương Liên hợp quốc?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q12" value="A"> A. Duy trì tăng trưởng kinh tế, hội nhập quốc tế của các nước thành viên và các tranh chấp về kinh tế giữa các nước thành viên.</label>
+            <label class="option-item"><input type="radio" name="b1_q12" value="B"> B. Thúc đẩy hợp tác quốc tế để giải quyết các vấn đề kinh tế, xã hội, văn hóa, nhân đạo.</label>
+            <label class="option-item"><input type="radio" name="b1_q12" value="C"> C. Thúc đẩy quan hệ hữu nghị giữa các dân tộc trên cơ sở tôn trọng quyền bình đẳng và quyền tự quyết dân tộc.</label>
+            <label class="option-item"><input type="radio" name="b1_q12" value="D"> D. Đóng vai trò là trung tâm điều hòa các nỗ lực quốc tế vì những mục tiêu chung.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q13" data-answer="C">
+        <div class="question-text">Câu 13. Đâu không phải là nguyên tắc cơ bản của Liên hợp quốc?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q13" value="A"> A. Bình đẳng về chủ quyền giữa các quốc gia.</label>
+            <label class="option-item"><input type="radio" name="b1_q13" value="B"> B. Tôn trọng toàn vẹn lãnh thổ và độc lập chính trị quốc gia.</label>
+            <label class="option-item"><input type="radio" name="b1_q13" value="C"> C. Ưu tiên sử dụng vũ lực về tranh chấp trong quan hệ quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b1_q13" value="D"> D. Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q14" data-answer="C">
+        <div class="question-text">Câu 14. Liên hợp quốc quyết định lấy ngày 24-10 hằng năm làm ngày Liên hợp quốc vì đó là ngày</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q14" value="A"> A. Kết thúc Chiến tranh lạnh.</label>
+            <label class="option-item"><input type="radio" name="b1_q14" value="B"> B. Bế mạc hội nghị I-an-ta.</label>
+            <label class="option-item"><input type="radio" name="b1_q14" value="C"> C. Hiến chương Liên hợp quốc có hiệu lực.</label>
+            <label class="option-item"><input type="radio" name="b1_q14" value="D"> D. Khai mạc lễ thành lập Liên hợp quốc.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q15" data-answer="A">
+        <div class="question-text">Câu 15. Nội dung nào là cơ sở để tổ chức Liên hợp quốc đề ra nguyên tắc "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình"?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q15" value="A"> A. Hòa bình là nguyện vọng, xu thế của các dân tộc trên thế giới.</label>
+            <label class="option-item"><input type="radio" name="b1_q15" value="B"> B. Hòa bình là điều kiện quyết định để duy trì chế độ chính trị.</label>
+            <label class="option-item"><input type="radio" name="b1_q15" value="C"> C. Mục đích của Liên hợp quốc là cân bằng lợi ích của các nước.</label>
+            <label class="option-item"><input type="radio" name="b1_q15" value="D"> D. Tranh chấp, xung đột xảy ra ở hầu hết các khu vực trên thế giới.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q16" data-answer="A">
+        <div class="question-text">Câu 16. Việt Nam có thể vận dụng nguyên tắc hoạt động nào của Liên hợp quốc để giải quyết vấn đề ở Biển Đông?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q16" value="A"> A. Giải quyết các tranh chấp bằng biện pháp hòa bình.</label>
+            <label class="option-item"><input type="radio" name="b1_q16" value="B"> B. Sự nhất trí của các nước thường trực Hội đồng bảo an.</label>
+            <label class="option-item"><input type="radio" name="b1_q16" value="C"> C. Quyền bình đẳng giữa các thành viên Liên hợp quốc.</label>
+            <label class="option-item"><input type="radio" name="b1_q16" value="D"> D. Không đe dọa dùng vũ lực tấn công các quốc gia khác.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q17" data-answer="D">
+        <div class="question-text">Câu 17. Đâu là nguyên nhân chủ yếu làm cho số lượng thành viên của Liên hợp quốc tăng nhanh từ sau năm 1945?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q17" value="A"> A. Gia nhập Liên hợp quốc để nhận được viện trợ kinh tế.</label>
+            <label class="option-item"><input type="radio" name="b1_q17" value="B"> B. Tác động của trật tự thế giới 2 cực và Chiến tranh lạnh.</label>
+            <label class="option-item"><input type="radio" name="b1_q17" value="C"> C. Giai đoạn này có nhiều quốc gia đã giành được độc lập.</label>
+            <label class="option-item"><input type="radio" name="b1_q17" value="D"> D. Nhiều vấn đề quá sức giải quyết đơn độc của các nước.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q18" data-answer="D">
+        <div class="question-text">Câu 18. Đâu là ý nghĩa của việc Việt Nam được bầu làm Ủy viên không thường trực Hội đồng Bảo an Liên hợp quốc trong các năm 2008 và 2019?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q18" value="A"> A. Nền kinh tế Việt Nam có sự phát triển vượt bậc.</label>
+            <label class="option-item"><input type="radio" name="b1_q18" value="B"> B. Tình hình an ninh - chính trị tương đối ổn định.</label>
+            <label class="option-item"><input type="radio" name="b1_q18" value="C"> C. Việt Nam đã xóa bỏ được tình trạng tham nhũng.</label>
+            <label class="option-item"><input type="radio" name="b1_q18" value="D"> D. Vị thế, uy tín được nâng cao trên trường quốc tế.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q19" data-answer="C">
+        <div class="question-text">Câu 19. Nhận định nào về vị trí, vai trò của Liên hợp quốc trên trường quốc tế là KHÔNG ĐÚNG?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q19" value="A"> A. Là diễn đàn quốc tế lớn nhất, vừa hợp tác vừa đấu tranh.</label>
+            <label class="option-item"><input type="radio" name="b1_q19" value="B"> B. Thúc đẩy mối quan hệ hợp tác hữu nghị giữa các dân tộc.</label>
+            <label class="option-item"><input type="radio" name="b1_q19" value="C"> C. Là tổ chức liên kết chính trị - kinh tế lớn nhất hành tinh.</label>
+            <label class="option-item"><input type="radio" name="b1_q19" value="D"> D. Giúp đỡ các quốc gia dân tộc về y tế, văn hóa, giáo dục.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q20" data-answer="A">
+        <div class="question-text">Câu 20. Mối quan hệ hợp tác của Liên hợp quốc với Việt Nam hiện nay là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q20" value="A"> A. Hợp tác theo hướng ngày càng sâu rộng và hiệu quả.</label>
+            <label class="option-item"><input type="radio" name="b1_q20" value="B"> B. Giúp đỡ giải quyết hậu quả nặng nề của chiến tranh.</label>
+            <label class="option-item"><input type="radio" name="b1_q20" value="C"> C. Viện trợ không hoàn lại để phát triển kinh tế, văn hóa.</label>
+            <label class="option-item"><input type="radio" name="b1_q20" value="D"> D. Thúc đẩy cải cách thực hiện các quyền tự do dân chủ.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b1_q21" data-answer="B">
+        <div class="question-text">Câu 21. Một trong những điểm giống về mục tiêu của Liên hợp quốc so với các tổ chức quốc tế và khu vực khác là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b1_q21" value="A"> A. Tập hợp thành viên vào liên minh quân sự.</label>
+            <label class="option-item"><input type="radio" name="b1_q21" value="B"> B. Đem lại lợi ích cho các nước thành viên.</label>
+            <label class="option-item"><input type="radio" name="b1_q21" value="C"> C. Thực hiện quyền tự do dân chủ, dân quyền.</label>
+            <label class="option-item"><input type="radio" name="b1_q21" value="D"> D. Trao đổi về vốn, khoa học và kinh nghiệm.</label>
+        </div>
+    </div>
+
+    <div class="section-header">Phần II. Câu trắc nghiệm đúng sai</div>
+
+    <!-- Bài 1 - Câu 1 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b1_tf1">
+        <div class="question-text">Câu 1. Đọc đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "Duy trì hòa bình và an ninh quốc tế, và để biểu đạt được mục đích đó, thi hành những biện pháp tập thể có hiệu quả để phòng ngừa và loại trừ các mối đe dọa hòa bình, cấm mọi hành vi xâm lược và phá hoại hòa bình khác; điều chỉnh hoặc giải quyết các vụ tranh chấp hoặc những tình thế có tính chất quốc tế có thể đưa đến sự phá hoại hòa bình, bằng biện pháp hòa bình theo đúng nguyên tắc của công lý và pháp luật quốc tế".<br>
+            <em>(Trích: Điều 1, Hiến chương Liên hợp quốc, ngày 24-10-1945)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Đoạn tư liệu thể hiện mục tiêu của Liên hợp quốc là thúc đẩy duy trì hòa bình và hợp tác quốc phòng nhằm đảm bảo nền hòa bình thế giới.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf1_a" value="S"> S</label>
+                        <label><input type="radio" name="b1_tf1_a" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Để thúc đẩy giải quyết các tranh chấp giữa các quốc gia thành viên, Liên hợp quốc khuyến khích thông qua các văn bản pháp lý của mỗi nước làm cơ sở để giải quyết.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf1_b" value="S"> S</label>
+                        <label><input type="radio" name="b1_tf1_b" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Trong số các mục tiêu của Liên hợp quốc, duy trì hòa bình và an ninh quốc tế là mục tiêu được đặt lên hàng đầu.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf1_c" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b1_tf1_c" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Ngày nay, Liên hợp quốc vẫn tiếp tục thúc đẩy mục tiêu giải quyết các vụ tranh chấp, xung đột quốc tế bằng biện pháp hòa bình.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf1_d" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b1_tf1_d" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bài 1 - Câu 2 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b1_tf2">
+        <div class="question-text">Câu 2. Đọc đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "[Năm 1960], Đại hội đồng Liên hợp quốc đã thông qua bản Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân, trao trả độc lập cho các quốc gia và dân tộc thuộc địa. Đó là một sự kiện chính trị quan trọng. Như thế, tuyên ngôn đã khẳng định các nước thực dân đã vi phạm nguyên tắc quan trọng nhất của luật pháp quốc tế; khẳng định rõ ràng cơ sở pháp lý quốc tế của cuộc đấu tranh giành độc lập của các dân tộc bị áp bức".<br>
+            <em>(Nguyễn Quốc Hùng, Nguyễn Hồng Quân, Liên hợp quốc và Lực lượng giữ gìn hòa bình Liên hợp quốc, NXB Chính trị quốc gia, Hà Nội, 2008, tr.46)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân của Liên hợp quốc đã góp phần nói lên nguyện vọng của các dân tộc bị áp bức.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf2_a" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b1_tf2_a" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân (năm 1960) của Liên hợp quốc đã tạo ra cơ sở pháp lý cho các cuộc đấu tranh giành độc lập của nhân dân các nước Á, Phi, Mỹ La-tinh.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf2_b" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b1_tf2_b" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân (năm 1960) đã thông qua các nguyên tắc hoạt động cơ bản của tổ chức Liên hợp quốc.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf2_c" value="S"> S</label>
+                        <label><input type="radio" name="b1_tf2_c" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Đoạn tư liệu đã thể hiện vai trò quan trọng nhất của tổ chức Liên hợp quốc là duy trì, hòa bình, an ninh thế giới.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf2_d" value="S"> S</label>
+                        <label><input type="radio" name="b1_tf2_d" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bài 1 - Câu 3 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b1_tf3">
+        <div class="question-text">Câu 3. Cho đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "Hội đồng Bảo an gồm 15 nước thành viên, trong đó có 5 nước ủy viên thường trực là: Mỹ, Anh, Pháp, Nga, Trung Quốc và 10 thành viên không thường trực do Đại hội đồng Liên hợp quốc bầu ra với nhiệm kỳ hai năm trên cơ sở phân chia công bằng về mặt địa lý và có tính tới sự đóng góp của những nước này cho tôn chỉ và mục đích của Liên hợp quốc và không được bầu lại nhiệm kỳ kế ngay sau khi mãn nhiệm"
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Đoạn tư liệu trên đề cập đến vai trò của Hội đồng Bảo an Liên hợp quốc trong việc đảm bảo quyền con người, phát triển văn hóa, xã hội.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf3_a" value="S"> S</label>
+                        <label><input type="radio" name="b1_tf3_a" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Hội đồng Bảo an là cơ quan chuyên môn của Liên hợp quốc giữ vai trò trọng yếu trong việc duy trì hòa bình và an ninh thế giới.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf3_b" value="S"> S</label>
+                        <label><input type="radio" name="b1_tf3_b" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Vị thế của các nước thành viên thường trực Hội đồng Bảo an Liên hợp quốc phản ánh cán cân quyền lực của các cường quốc trong trật tự thế giới sau Chiến tranh thế giới thứ hai.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf3_c" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b1_tf3_c" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Theo nguyên tắc nhất trí giữa 5 nước Ủy viên thường trực, một quyết định của Hội đồng Bảo an Liên hợp quốc sẽ chắc chắn được thông qua khi không có nước nào bỏ phiếu chống.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b1_tf3_d" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b1_tf3_d" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- BÀI 2 -->
+    <div class="lesson-header">BÀI 2: TRẬT TỰ THẾ GIỚI TRONG CHIẾN TRANH LẠNH</div>
+    <div class="section-header">Phần I. Câu hỏi trắc nghiệm chọn 1 phương án</div>
+
+    <div class="card" data-qid="b2_q1" data-answer="C">
+        <div class="question-text">Câu 1. Hội nghị I-an-ta (2/1945) được tiến hành trong giai đoạn nào của Chiến tranh thế giới thứ hai?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q1" value="A"> A. Vừa mới kết thúc.</label>
+            <label class="option-item"><input type="radio" name="b2_q1" value="B"> B. Bùng nổ và lan rộng.</label>
+            <label class="option-item"><input type="radio" name="b2_q1" value="C"> C. Giai đoạn sắp kết thúc.</label>
+            <label class="option-item"><input type="radio" name="b2_q1" value="D"> D. Đang diễn ra ác liệt.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q2" data-answer="D">
+        <div class="question-text">Câu 2. “Trật tự thế giới hai cực I-an-ta” sau Chiến tranh thế giới thứ hai bị chi phối bởi hai cường quốc nào?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q2" value="A"> A. Mỹ và Đức.</label>
+            <label class="option-item"><input type="radio" name="b2_q2" value="B"> B. Mỹ và Anh.</label>
+            <label class="option-item"><input type="radio" name="b2_q2" value="C"> C. Mỹ và Trung Quốc.</label>
+            <label class="option-item"><input type="radio" name="b2_q2" value="D"> D. Mỹ và Liên Xô.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q3" data-answer="C">
+        <div class="question-text">Câu 3. Quyết định nào sau đây KHÔNG phải là của Hội nghị I-an-ta (2/1945)?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q3" value="A"> A. Thành lập tổ chức quốc tế là Liên hợp quốc.</label>
+            <label class="option-item"><input type="radio" name="b2_q3" value="B"> B. Thống nhất tiêu diệt chủ nghĩa phát xít.</label>
+            <label class="option-item"><input type="radio" name="b2_q3" value="C"> C. Hình thành trật tự thế giới mới.</label>
+            <label class="option-item"><input type="radio" name="b2_q3" value="D"> D. Phân chia phạm vi ảnh hưởng.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q4" data-answer="D">
+        <div class="question-text">Câu 4. Mục tiêu chung được các cường quốc thỏa thuận trong hội nghị I-an-ta (2/1945) là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q4" value="A"> A. chấm dứt tình trạng nội chiến ở Trung Quốc, Áo và Phần Lan.</label>
+            <label class="option-item"><input type="radio" name="b2_q4" value="B"> B. thủ tiêu chủ nghĩa thực dân và chủ nghĩa phân biệt chủng tộc.</label>
+            <label class="option-item"><input type="radio" name="b2_q4" value="C"> C. xây dựng nước Đức trở thành quốc gia thống nhất và dân chủ.</label>
+            <label class="option-item"><input type="radio" name="b2_q4" value="D"> D. tiêu diệt tận gốc phát xít Đức và chủ nghĩa quân phiệt Nhật Bản.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q5" data-answer="C">
+        <div class="question-text">Câu 5. Để tiêu diệt chủ nghĩa quân phiệt Nhật Bản và nhanh chóng kết thúc chiến tranh, hội nghị I-an-ta đã quyết định</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q5" value="A"> A. Anh, Pháp, Mỹ sẽ tham chiến chống Nhật ở châu Âu.</label>
+            <label class="option-item"><input type="radio" name="b2_q5" value="B"> B. Anh và Liên Xô tiêu diệt lực lượng quân Nhật tại Trung Quốc.</label>
+            <label class="option-item"><input type="radio" name="b2_q5" value="C"> C. Liên Xô sẽ đánh Nhật ở Châu Á sau khi đánh bại phát xít Đức.</label>
+            <label class="option-item"><input type="radio" name="b2_q5" value="D"> D. Liên Xô không đưa quân đội tham gia chống Nhật tại Châu Á.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q6" data-answer="B">
+        <div class="question-text">Câu 6. Một trong những khu vực được hội nghị I-an-ta (1945) quy định thuộc phạm vi ảnh hưởng của Liên Xô là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q6" value="A"> A. Tây Âu.</label>
+            <label class="option-item"><input type="radio" name="b2_q6" value="B"> B. Đông Âu.</label>
+            <label class="option-item"><input type="radio" name="b2_q6" value="C"> C. Nhật Bản.</label>
+            <label class="option-item"><input type="radio" name="b2_q6" value="D"> D. Triều Tiên.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q7" data-answer="A">
+        <div class="question-text">Câu 7. Một trong những khu vực được hội nghị I-an-ta (1945) quy định thuộc phạm vi ảnh hưởng của Mỹ là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q7" value="A"> A. Tây Âu.</label>
+            <label class="option-item"><input type="radio" name="b2_q7" value="B"> B. Đông Âu.</label>
+            <label class="option-item"><input type="radio" name="b2_q7" value="C"> C. Mông Cổ.</label>
+            <label class="option-item"><input type="radio" name="b2_q7" value="D"> D. Trung Đông.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q8" data-answer="A">
+        <div class="question-text">Câu 8. Đâu là ranh giới phân chia phạm vi chiếm đóng Triều Tiên của Mỹ và Liên Xô được Hội nghị I-an-ta (2/1945) quy định?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q8" value="A"> A. Vĩ tuyến 38.</label>
+            <label class="option-item"><input type="radio" name="b2_q8" value="B"> B. Sông Áp Lục.</label>
+            <label class="option-item"><input type="radio" name="b2_q8" value="C"> C. Vĩ tuyến 17.</label>
+            <label class="option-item"><input type="radio" name="b2_q8" value="D"> D. Cảng Icheon.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q9" data-answer="B">
+        <div class="question-text">Câu 9. Trật tự thế giới mới được hình thành sau chiến tranh thế giới thứ hai (1945) là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q9" value="A"> A. đơn cực.</label>
+            <label class="option-item"><input type="radio" name="b2_q9" value="B"> B. I-an-ta.</label>
+            <label class="option-item"><input type="radio" name="b2_q9" value="C"> C. Véc-xai.</label>
+            <label class="option-item"><input type="radio" name="b2_q9" value="D"> D. đa cực.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q10" data-answer="C">
+        <div class="question-text">Câu 10. Theo quyết định của Hội nghị Ianta (2 - 1945), quốc gia nào dưới đây cần trở thành một quốc gia thống nhất và dân chủ?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q10" value="A"> A. Mông Cổ.</label>
+            <label class="option-item"><input type="radio" name="b2_q10" value="B"> B. Nhật Bản.</label>
+            <label class="option-item"><input type="radio" name="b2_q10" value="C"> C. Trung Quốc.</label>
+            <label class="option-item"><input type="radio" name="b2_q10" value="D"> D. Triều Tiên.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q11" data-answer="A">
+        <div class="question-text">Câu 11. Một trong những nguyên nhân sụp đổ của Trật tự hai cực I-an-ta là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q11" value="A"> A. Liên Xô mắc sai lầm trong thực hiện chính sách cải tổ và sụp đổ.</label>
+            <label class="option-item"><input type="radio" name="b2_q11" value="B"> B. Mỹ trở thành trung tâm kinh tế lớn nhất thế giới.</label>
+            <label class="option-item"><input type="radio" name="b2_q11" value="C"> C. Sự thay đổi trong cán cân kinh tế thế giới.</label>
+            <label class="option-item"><input type="radio" name="b2_q11" value="D"> D. Hệ thống xã hội chủ nghĩa mở rộng toàn thế giới.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q12" data-answer="B">
+        <div class="question-text">Câu 12. Những quốc gia nào sau đây tham dự hội nghị I-an-ta (2/1945)?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q12" value="A"> A. Liên Xô, Mỹ, Pháp.</label>
+            <label class="option-item"><input type="radio" name="b2_q12" value="B"> B. Liên Xô, Mỹ, Anh.</label>
+            <label class="option-item"><input type="radio" name="b2_q12" value="C"> C. Trung Quốc, Mỹ, Anh.</label>
+            <label class="option-item"><input type="radio" name="b2_q12" value="D"> D. Liên Xô, Anh, Pháp.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q13" data-answer="A">
+        <div class="question-text">Câu 13. Liên Xô và Mỹ đẩy mạnh đối thoại hợp tác từ:</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q13" value="A"> A. nửa sau những năm 80.</label>
+            <label class="option-item"><input type="radio" name="b2_q13" value="B"> B. nửa sau những năm 90.</label>
+            <label class="option-item"><input type="radio" name="b2_q13" value="C"> C. nửa đầu những năm 90.</label>
+            <label class="option-item"><input type="radio" name="b2_q13" value="D"> D. nửa đầu những năm 80.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q14" data-answer="C">
+        <div class="question-text">Câu 14. Năm 1989, tại đảo Man-ta, Mỹ và Liên Xô đã có hành động nào sau đây?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q14" value="A"> A. Tuyên bố chung về vũ khí chiến lược.</label>
+            <label class="option-item"><input type="radio" name="b2_q14" value="B"> B. Ký nhiều hiệp định thương mại tự do.</label>
+            <label class="option-item"><input type="radio" name="b2_q14" value="C"> C. Tuyên bố chấm dứt Chiến tranh lạnh.</label>
+            <label class="option-item"><input type="radio" name="b2_q14" value="D"> D. Cam kết hòa bình giữa Mỹ và Liên Xô.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q15" data-answer="A">
+        <div class="question-text">Câu 15. Sự kiện nào sau đây đánh dấu trật tự hai cực I-an-ta chấm dứt?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q15" value="A"> A. Liên Xô chính thức tan rã (12/1991).</label>
+            <label class="option-item"><input type="radio" name="b2_q15" value="B"> B. Chiến tranh lạnh kết thúc (1989).</label>
+            <label class="option-item"><input type="radio" name="b2_q15" value="C"> C. Bức tường Béc-lin sụp đổ (1989).</label>
+            <label class="option-item"><input type="radio" name="b2_q15" value="D"> D. Khủng hoảng năng lượng (1973).</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q16" data-answer="D">
+        <div class="question-text">Câu 16. Hội nghị I-an-ta (2-1945) đã thông qua quyết định nào?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q16" value="A"> A. Phân chia nước Đức thành bốn khu vực chiếm đóng của Đồng minh.</label>
+            <label class="option-item"><input type="radio" name="b2_q16" value="B"> B. Phân công quân đội Đồng minh giải giáp quân Nhật ở Đông Dương.</label>
+            <label class="option-item"><input type="radio" name="b2_q16" value="C"> C. Thành lập Hội quốc liên để duy trì hòa bình, an ninh thế giới.</label>
+            <label class="option-item"><input type="radio" name="b2_q16" value="D"> D. Phân chia phạm vi ảnh hưởng ở châu Âu, Á giữa các nước Đồng minh.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q17" data-answer="D">
+        <div class="question-text">Câu 17. Quyết định nào của hội nghị I-an-ta (2-1945) đã tạo điều kiện cho thực dân Pháp trở lại xâm lược Đông Dương?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q17" value="A"> A. Liên Xô không được đưa quân đội vào Đông Dương.</label>
+            <label class="option-item"><input type="radio" name="b2_q17" value="B"> B. Anh, Mỹ mở đường cho Pháp chiếm lại Đông Dương.</label>
+            <label class="option-item"><input type="radio" name="b2_q17" value="C"> C. Đông Nam Á thuộc phạm vi ảnh hưởng của phương Tây.</label>
+            <label class="option-item"><input type="radio" name="b2_q17" value="D"> D. Quân đội Trung Hoa Dân quốc giải giáp phát xít Nhật.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b2_q18" data-answer="B">
+        <div class="question-text">Câu 18. Nhận xét nào là đúng về việc thỏa thuận đóng quân và phân chia phạm vi ảnh hưởng giữa ba cường quốc trong Hội nghị I-an-ta (2-1945)?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b2_q18" value="A"> A. Thực hiện việc tiêu diệt tận gốc chủ nghĩa thực dân.</label>
+            <label class="option-item"><input type="radio" name="b2_q18" value="B"> B. Thực chất là phân chia quyền lợi giữa Mỹ và Liên Xô.</label>
+            <label class="option-item"><input type="radio" name="b2_q18" value="C"> C. Nhanh chóng triệt tiêu sức mạnh của các nước tư bản.</label>
+            <label class="option-item"><input type="radio" name="b2_q18" value="D"> D. Tạo điều kiện để tái vũ trang cho Đức chống Liên Xô.</label>
+        </div>
+    </div>
+
+    <div class="section-header">Phần II. Câu trắc nghiệm đúng sai</div>
+
+    <!-- Bài 2 - Câu 1 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b2_tf1">
+        <div class="question-text">Câu 1. Cho đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "Vào thập niên 1980, mối quan hệ nồng ấm giữa Tổng thống Mỹ Ri-gân và nhà lãnh đạo Liên Xô Goóc-ba-chốp đã giúp giảm dần tình trạng căng thẳng của Chiến tranh lạnh. Năm 1987, hai nhà lãnh đạo đã đồng ý huỷ bỏ tên lửa hạt nhân tầm trung. Năm 1989, Goóc-ba-chốp cho phép các quốc gia xã hội chủ nghĩa ở Đông Âu bầu ra chính phủ dân chủ, và đến năm 1991, Liên Xô tan rã thành 15 nước cộng hoà độc lập."<br>
+            <em>(King Fisher, Bách khoa thư lịch sử (Nguyễn Đức Tĩnh và Ngô Minh Châu dịch), NXB Thế giới, Hà Nội, 2016, tr.437)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Trong thập niên 80 của thế kỷ XX, tình trạng căng thẳng của Chiến tranh lạnh diễn ra gay gắt.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf1_a" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf1_a" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Đoạn trích trên đề cập đến sự xói mòn và tan rã của trật tự thế giới hai cực I-an-ta.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf1_b" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf1_b" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Cục diện hai phe kết thúc bắt nguồn từ sự suy giảm tương đối sức mạnh của hai cực trong quan hệ quốc tế.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf1_c" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf1_c" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Điểm chung của các trật tự thế giới trong thế kỷ XX là đều suy yếu, sụp đổ khi có sự hòa hoãn, thỏa hiệp giữa các siêu cường.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf1_d" value="S"> S</label>
+                        <label><input type="radio" name="b2_tf1_d" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bài 2 - Câu 2 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b2_tf2">
+        <div class="question-text">Câu 2. Cho những thông tin trong bảng sau đây:</div>
+        <div class="source-box">
+            • 1949: Tổ chức Hiệp ước Bắc Đại Tây Dương (NATO) do Mỹ và các nước phương Tây thành lập.<br>
+            • 1949: Cách mạng Trung Quốc thắng lợi.<br>
+            • 1955: Liên Xô và các nước Đông Âu thành lập Tổ chức Hiệp ước Vác-sa-va.<br>
+            • 1972: Chuyến thăm chính thức đầu tiên của Tổng thống Mỹ Ních-xơn tới Liên Xô.<br>
+            • 1972: Liên Xô và Mỹ đã đạt được thỏa thuận bước đầu về hạn chế vũ khí tiến công chiến lược.<br>
+            • 1989: Mỹ và Liên Xô tuyên bố chấm dứt Chiến tranh lạnh.
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Sự ra đời của NATO và Tổ chức Hiệp ước Vác-sa-va là một biểu hiện của Trật tự thế giới hai cực I-an-ta.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf2_a" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf2_a" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Với thắng lợi của cách mạng Trung Quốc (1949) chứng tỏ ngay trong giai đoạn xác lập và phát triển, Trật tự thế giới hai cực I-an-ta đã có biểu hiện của sự rạn nứt.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf2_b" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf2_b" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Trật tự thế giới hai cực I-an-ta chính thức sụp đổ khi Mỹ và Liên Xô tuyên bố chấm dứt Chiến tranh lạnh.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf2_c" value="S"> S</label>
+                        <label><input type="radio" name="b2_tf2_c" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Trật tự thế giới hai cực I-an-ta suy yếu khi xu hướng hòa hoãn giữa Mỹ và Liên Xô bắt đầu xuất hiện từ đầu những năm 70 của thế kỷ XX.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf2_d" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf2_d" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bài 2 - Câu 3 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b2_tf3">
+        <div class="question-text">Câu 3. Cho đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "Trong trật tự thế giới hai cực I-an-ta, đã diễn ra một cuộc đối đầu gay gắt, quyết liệt và kéo dài tới gần bốn thập kỷ giữa hai "cực" Xô - Mỹ, làm cho cục diện thế giới luôn luôn phức tạp, căng thẳng. Cuộc đối đầu này đã dẫn tới cuộc đối đầu giữa hai khối Đông - Tây, cuốn hút từng quốc gia, từng khu vực quốc gia khó đứng ngoài cuộc đối đầu này và chịu ảnh hưởng sâu sắc của cuộc đối đầu này".<br>
+            <em>(Nguyễn Anh Thái, Lịch sử thế giới hiện đại từ 1945 đến 1995, quyển A, NXB Đại học Quốc gia Hà Nội, 1999, tr32)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Trong trật tự thế giới hai cực I-an-ta đã diễn ra cuộc đối đầu gay gắt, quyết liệt giữa hai "cực" Xô - Mỹ, làm cho thế giới luôn phức tạp, căng thẳng.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf3_a" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf3_a" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Với trật tự hai cực I-an-ta, Liên Xô và Mỹ đã đạt được những mục tiêu cơ bản, chi phối cục diện thế giới, đồng thời trật tự này đã xâm phạm đến chủ quyền, lãnh thổ và lợi ích của nhiều nước.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf3_b" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf3_b" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Trong sự đối đầu 2 cực I-an-ta, cuộc chiến tranh cục bộ lớn nhất phản ánh mâu thuẫn giữa hai cực, hai phe là chiến tranh xâm lược Đông Dương của Pháp (1945 - 1954).</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf3_c" value="S"> S</label>
+                        <label><input type="radio" name="b2_tf3_c" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Sự tồn tại của Trật tự thế giới hai cực I-an-ta gắn liền với sự đối đầu giữa hai hệ thống xã hội đối lập là tư bản chủ nghĩa và xã hội chủ nghĩa.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b2_tf3_d" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b2_tf3_d" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- BÀI 3 -->
+    <div class="lesson-header">BÀI 3: TRẬT TỰ THẾ GIỚI SAU CHIẾN TRANH LẠNH</div>
+    <div class="section-header">Phần I. Câu hỏi trắc nghiệm chọn 1 phương án</div>
+
+    <div class="card" data-qid="b3_q1" data-answer="C">
+        <div class="question-text">Câu 1. Xu thế chủ đạo trong quan hệ giữa các cường quốc sau Chiến tranh lạnh là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q1" value="A"> A. đối thoại, thỏa hiệp, tránh xung đột trực tiếp.</label>
+            <label class="option-item"><input type="radio" name="b3_q1" value="B"> B. tôn trọng vai trò của Liên hợp quốc.</label>
+            <label class="option-item"><input type="radio" name="b3_q1" value="C"> C. hợp tác, không cạnh tranh, không mâu thuẫn.</label>
+            <label class="option-item"><input type="radio" name="b3_q1" value="D"> D. hòa bình, không xung đột, tiến hành hợp tác.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q2" data-answer="A">
+        <div class="question-text">Câu 2. Sau Chiến tranh lạnh, hầu hết các quốc gia trên thế giới đều điều chỉnh chiến lược phát triển tập trung vào:</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q2" value="A"> A. Kinh tế.</label>
+            <label class="option-item"><input type="radio" name="b3_q2" value="B"> B. Đối ngoại.</label>
+            <label class="option-item"><input type="radio" name="b3_q2" value="C"> C. Văn hóa.</label>
+            <label class="option-item"><input type="radio" name="b3_q2" value="D"> D. Chính trị.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q3" data-answer="B">
+        <div class="question-text">Câu 3. “Lấy phát triển kinh tế làm trọng điểm” được xem là nội dung chiến lược chủ yếu của các nước trong thời kỳ</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q3" value="A"> A. Chiến tranh thế giới thứ hai kết thúc.</label>
+            <label class="option-item"><input type="radio" name="b3_q3" value="B"> B. sau khi cuộc Chiến tranh lạnh kết thúc.</label>
+            <label class="option-item"><input type="radio" name="b3_q3" value="C"> C. chủ nghĩa xã hội thành hệ thống thế giới.</label>
+            <label class="option-item"><input type="radio" name="b3_q3" value="D"> D. ngay sau khi Chiến tranh lạnh bắt đầu.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q4" data-answer="A">
+        <div class="question-text">Câu 4. Vì sao sau Chiến tranh lạnh, hầu hết các quốc gia trên thế giới đều điều chỉnh chiến lược phát triển tập trung vào kinh tế?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q4" value="A"> A. Tăng cường sức mạnh, tiềm lực quốc gia, nâng cao đời sống của người dân.</label>
+            <label class="option-item"><input type="radio" name="b3_q4" value="B"> B. Thúc đẩy mạnh mẽ quá trình toàn cầu hóa.</label>
+            <label class="option-item"><input type="radio" name="b3_q4" value="C"> C. Tiếp tục khẳng định vị thế quốc gia trên trường quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b3_q4" value="D"> D. Khẳng định vai trò của quốc gia trong quan hệ quốc tế.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q5" data-answer="A">
+        <div class="question-text">Câu 5. Một trong những biểu hiện của xu thế Toàn cầu hóa là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q5" value="A"> A. sự gia tăng của thương mại thế giới.</label>
+            <label class="option-item"><input type="radio" name="b3_q5" value="B"> B. mâu thuẫn giữa hai siêu cường Xô, Mỹ.</label>
+            <label class="option-item"><input type="radio" name="b3_q5" value="C"> C. xu thế hòa hoãn Đông, Tây thế kỷ XX.</label>
+            <label class="option-item"><input type="radio" name="b3_q5" value="D"> D. thế giới đã chia thành hai cực, hai phe.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q6" data-answer="C">
+        <div class="question-text">Câu 6. Quốc gia nào sau đây nằm trong nhóm G20?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q6" value="A"> A. Thái Lan.</label>
+            <label class="option-item"><input type="radio" name="b3_q6" value="B"> B. Việt Nam.</label>
+            <label class="option-item"><input type="radio" name="b3_q6" value="C"> C. Nam Phi.</label>
+            <label class="option-item"><input type="radio" name="b3_q6" value="D"> D. Ai Cập.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q7" data-answer="D">
+        <div class="question-text">Câu 7. Nội dung nào sau đây phản ánh đúng quan hệ quốc tế trong những năm đầu thế kỷ XXI?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q7" value="A"> A. Liên Xô và Mỹ suy giảm sức mạnh, ngày càng chịu sự cạnh tranh của các nước khác.</label>
+            <label class="option-item"><input type="radio" name="b3_q7" value="B"> B. Các nước có tiềm lực kinh tế, quân sự mạnh đóng vai trò chi phối phần lớn quan hệ quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b3_q7" value="C"> C. Trật tự hai cực I-an-ta từng bước được thiết lập, chi phối phần lớn quan hệ quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b3_q7" value="D"> D. Trung Quốc là cường quốc số 1 thế giới, vươn lên lãnh đạo hệ thống xã hội chủ nghĩa.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q8" data-answer="A">
+        <div class="question-text">Câu 8. Sau khi Chiến tranh lạnh kết thúc (1989) một trong những khu vực trên thế giới vẫn diễn ra xung đột vũ trang là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q8" value="A"> A. Trung Đông.</label>
+            <label class="option-item"><input type="radio" name="b3_q8" value="B"> B. Đông Bắc Á.</label>
+            <label class="option-item"><input type="radio" name="b3_q8" value="C"> C. Địa Trung Hải.</label>
+            <label class="option-item"><input type="radio" name="b3_q8" value="D"> D. Châu Nam Cực.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q9" data-answer="B">
+        <div class="question-text">Câu 9. Một trong những biểu tượng cho sự kết thúc Chiến tranh lạnh là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q9" value="A"> A. Liên Xô chính thức sụp đổ (1991).</label>
+            <label class="option-item"><input type="radio" name="b3_q9" value="B"> B. bức tường Béc-lin sụp đổ (11/1989).</label>
+            <label class="option-item"><input type="radio" name="b3_q9" value="C"> C. chiến tranh Việt Nam kết thúc (1975).</label>
+            <label class="option-item"><input type="radio" name="b3_q9" value="D"> D. vấn đề Nam Tư-đăng được giải quyết.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q10" data-answer="A">
+        <div class="question-text">Câu 10. “Chiếm 2/3 dân số, 90% GDP, 80% thương mại toàn cầu”. Những số liệu này đang nói đến các quốc gia thuộc</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q10" value="A"> A. G20.</label>
+            <label class="option-item"><input type="radio" name="b3_q10" value="B"> B. NICS.</label>
+            <label class="option-item"><input type="radio" name="b3_q10" value="C"> C. EU.</label>
+            <label class="option-item"><input type="radio" name="b3_q10" value="D"> D. ASEAN.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q11" data-answer="B">
+        <div class="question-text">Câu 11. Nội dung nào sau đây là nhân tố ảnh hưởng tới sự hình thành trật tự thế giới mới sau khi Trật tự thế giới hai cực I-an-ta sụp đổ?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q11" value="A"> A. Thành công của công cuộc cải cách ở Trung Quốc.</label>
+            <label class="option-item"><input type="radio" name="b3_q11" value="B"> B. Sự giải thể của tất cả các liên minh quân sự trên thế giới.</label>
+            <label class="option-item"><input type="radio" name="b3_q11" value="C"> C. Sự thành công của cuộc chiến chống chủ nghĩa phát xít.</label>
+            <label class="option-item"><input type="radio" name="b3_q11" value="D"> D. Tình trạng biến đổi khí hậu được giải quyết triệt để.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q12" data-answer="D">
+        <div class="question-text">Câu 12. Sự phát triển và tác động to lớn của các công ty xuyên quốc gia (từ đầu những năm 80 của thế kỷ XX) là biểu hiện của</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q12" value="A"> A. xu thế khu vực hóa.</label>
+            <label class="option-item"><input type="radio" name="b3_q12" value="B"> B. cách mạng khoa học.</label>
+            <label class="option-item"><input type="radio" name="b3_q12" value="C"> C. trật tự thế giới “đa cực”.</label>
+            <label class="option-item"><input type="radio" name="b3_q12" value="D"> D. xu thế Toàn cầu hóa.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q13" data-answer="C">
+        <div class="question-text">Câu 13. Chiến tranh lạnh kết thúc, các quốc gia trên thế giới đều điều chỉnh chiến lược phát triển tập trung vào kinh tế vì lý do nào sau đây?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q13" value="A"> A. Đây là nguồn vốn quan trọng để khắc phục hậu quả chiến tranh.</label>
+            <label class="option-item"><input type="radio" name="b3_q13" value="B"> B. Nhu cầu giải quyết vấn đề xóa đói giảm nghèo đòi hỏi nguồn lực lớn.</label>
+            <label class="option-item"><input type="radio" name="b3_q13" value="C"> C. Kinh tế là nền tảng để nâng cao vị thế quốc gia trên trường quốc tế.</label>
+            <label class="option-item"><input type="radio" name="b3_q13" value="D"> D. Sự phát triển kinh tế là yếu tố quyết định để phát triển chính trị.</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q14" data-answer="A">
+        <div class="question-text">Câu 14. Tổ chức nào sau đây là tổ chức liên kết kinh tế thương mại lớn nhất thế giới?</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q14" value="A"> A. WTO</label>
+            <label class="option-item"><input type="radio" name="b3_q14" value="B"> B. APEC</label>
+            <label class="option-item"><input type="radio" name="b3_q14" value="C"> C. ASEM</label>
+            <label class="option-item"><input type="radio" name="b3_q14" value="D"> D. NAFTA</label>
+        </div>
+    </div>
+
+    <div class="card" data-qid="b3_q15" data-answer="B">
+        <div class="question-text">Câu 15. Một trong những biểu tượng cho sự kết thúc của Chiến tranh lạnh là</div>
+        <div class="options-group">
+            <label class="option-item"><input type="radio" name="b3_q15" value="A"> A. Sự xuất hiện của xu thế toàn cầu hóa.</label>
+            <label class="option-item"><input type="radio" name="b3_q15" value="B"> B. Bức tường Béc-lin sụp đổ (1989).</label>
+            <label class="option-item"><input type="radio" name="b3_q15" value="C"> C. Mỹ sang thăm Liên Xô (1972).</label>
+            <label class="option-item"><input type="radio" name="b3_q15" value="D"> D. Mỹ sang thăm Trung Quốc (1972).</label>
+        </div>
+    </div>
+
+    <div class="section-header">Phần II. Câu trắc nghiệm đúng sai</div>
+
+    <!-- Bài 3 - Câu 1 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b3_tf1">
+        <div class="question-text">Câu 1. Đọc đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "Với sự kết thúc của trật tự hai cực Xô - Mỹ, sự xác định vị trí của các nước lớn với chiến lược đối ngoại mới, cùng với sự tác động của những nhân tố khác, một trật tự đa trung tâm đã và đang hình thành [...] Trong trật tự thế giới mới, các nước đã chuyển từ đối đầu sang đối thoại, hòa hoãn, bình thường hóa quan hệ quốc tế trong cùng tồn tại hòa bình, vừa hợp tác vừa cạnh tranh và phát triển".<br>
+            <em>(Hoàng Văn Hiển - Nguyễn Viết Thảo, Quan hệ quốc tế từ 1945 đến 1995, NXB Chính trị Quốc gia, HN, 1998, tr.108)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Đoạn tư liệu trên đề cập đến sự hình thành của một trật tự thế giới mới từ sau Chiến tranh thế giới thứ hai.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf1_a" value="S"> S</label>
+                        <label><input type="radio" name="b3_tf1_a" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Trong trật tự thế giới mới, các cường quốc đã điều chỉnh quan hệ theo hướng đối thoại, thỏa hiệp, tránh xung đột quân sự trực tiếp.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf1_b" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf1_b" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Trong xu thế trật tự thế giới mới, sức mạnh tổng hợp của mỗi quốc gia tùy thuộc vào sức mạnh quân sự, chính trị.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf1_c" value="S"> S</label>
+                        <label><input type="radio" name="b3_tf1_c" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Sự hình thành trật tự thế giới mới là một trong những nhân tố tác động để Việt Nam đẩy mạnh hơn nữa công cuộc Đổi mới đất nước.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf1_d" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf1_d" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bài 3 - Câu 2 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b3_tf2">
+        <div class="question-text">Câu 2. Cho đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "Toàn cầu hóa mà trước hết về thực chất là toàn cầu hóa kinh tế đang trở thành một đặc trưng chủ yếu của sự phát triển thế giới. Xu thế toàn cầu hóa là xu thế khách quan, tất yếu, không thể đảo ngược được. Toàn cầu hóa mang lại nhiều cơ hội nhưng cũng hàm chứa không ít thách thức to lớn đối với các quốc gia, đặc biệt là các nước đang phát triển".<br>
+            <em>(Trần Thị Vinh (Chủ biên), Lê Văn Anh, Lịch sử thế giới hiện đại, quyển 2, NXB Đại học Sư phạm, Hà Nội, 2016, tr.98)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Một trong những thách thức to lớn của xu thế toàn cầu hóa đối với các quốc gia, đặc biệt là các nước đang phát triển là làm trầm trọng thêm bất công xã hội.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf2_a" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf2_a" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Toàn cầu hóa là một xu thế khách quan, tất yếu nhưng không thể đảo ngược vì đó là kết quả của việc mở rộng quan hệ thương mại giữa các cường quốc.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf2_b" value="S"> S</label>
+                        <label><input type="radio" name="b3_tf2_b" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Đoạn trích trên đề cập đến một trong những xu thế phát triển chính của thế giới sau Chiến tranh lạnh là xu thế toàn cầu hóa.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf2_c" value="S"> S</label>
+                        <label><input type="radio" name="b3_tf2_c" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Xu thế toàn cầu hóa đưa đến sự phát triển nhanh của lực lượng sản xuất đòi hỏi các quốc gia phải tăng cường quan hệ hợp tác quốc tế.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf2_d" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf2_d" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bài 3 - Câu 3 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b3_tf3">
+        <div class="question-text">Câu 3. Cho đoạn tư liệu sau đây:</div>
+        <div class="source-box">
+            "Thế giới phát triển nhanh chóng theo hướng đa cực, tuy vậy cục diện đa cực chưa hẳn đã hình thành mà đang trải qua thời kỳ quá độ từ Trật tự cũ để tiến tới một Trật tự mới. Có người dự đoán thời kỳ quá độ này kéo dài từ 20 đến 30 năm, có thể tới 30 đến 50 năm, bởi sự chuyển đổi cục diện thế giới lần này mang đặc điểm mới, quan trọng nhất là không trải qua chiến tranh như các cục diện trước kia. Thế giới đang trong tình hình "một siêu cường, nhiều cường quốc", đó là các nước Mỹ, Tây Âu (EU), Nhật Bản, Nga và Trung Quốc".<br>
+            <em>(Vũ Dương Ninh, Một số chuyên đề Lịch sử thế giới, NXB Đại học Quốc gia Hà Nội, 2002, tr.399)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Sau Chiến tranh lạnh, quan hệ quốc tế phát triển theo xu hướng đa cực.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf3_a" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf3_a" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Trật tự thế giới đa cực đã được xác lập trên thế giới thay thế cho trật tự đơn cực.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf3_b" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf3_b" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Một trong những "đặc điểm mới" mà tư liệu xác định là sức mạnh kinh tế của mỗi quốc gia trong trật tự đa cực.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf3_c" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf3_c" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Trật tự đa cực có nét tương đồng với các trật tự thế giới trước đó vì đều được xác lập bởi các cuộc chiến tranh.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf3_d" value="S"> S</label>
+                        <label><input type="radio" name="b3_tf3_d" value="Đ"> Đ</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bài 3 - Câu 4 Đúng/Sai -->
+    <div class="card tf-card" data-qid="b3_tf4">
+        <div class="question-text">Câu 4. Đọc đoạn tư liệu sau:</div>
+        <div class="source-box">
+            "Trải qua hơn 40 năm, “Trật tự hai cực Ianta” đã từng bước bị xói mòn: thắng lợi của cách mạng Trung Quốc năm 1949 đã tạo ra một “đột phá” đối với trật tự này và đập tan âm mưu của Mĩ khống chế Trung Quốc và Liên Xô phải bỏ những đặc quyền ở vùng Đông Bắc Trung Quốc; sự lớn mạnh của nền kinh tế các nước tư bản Tây Âu, đặc biệt sự ra đời của Khối thị trường chung châu Âu (EEC) từ giai đoạn trước làm suy giảm nghiêm trọng phạm vi ảnh hưởng của Mĩ ở Tây Âu; thắng lợi của phong trào giải phóng dân tộc làm thay đổi căn bản bộ mặt của khu vực Á – Phi – Mỹ Latinh mà theo “khuôn khổ Ianta” thuộc ảnh hưởng truyền thống của Mĩ và các nước phương Tây; sự phát triển mạnh mẽ của kinh tế Nhật Bản, Tây Âu dẫn đến việc hai trung tâm kinh tế - tài chính là Tây Âu và Nhật Bản cạnh tranh với Mĩ."<br>
+            <em>(Nguyễn Anh Thái, Lịch sử thế giới hiện đại. NXB Giáo dục, tr417)</em>
+        </div>
+        <table class="tf-table">
+            <tr>
+                <td>a) Cách mạng Trung Quốc thắng lợi đã gây ảnh hưởng lớn đến sự củng cố trật tự 2 cực Ianta của cả Liên Xô và Mỹ.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf4_a" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf4_a" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>b) Quan hệ giữa Nhật Bản, Tây Âu và Mỹ chuyển từ đồng minh sang đối đầu.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf4_b" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf4_b" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>c) Sự ra đời các quốc gia độc lập ở châu Á góp phần làm xói mòn trật tự hai cực Ianta.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf4_c" value="Đ"> Đ</label>
+                        <label><input type="radio" name="b3_tf4_c" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>d) Sự phát triển mạnh mẽ của Tây Âu là nguyên nhân chủ quan mang tính quyết định làm giảm ảnh hưởng của Mỹ ở châu Âu.</td>
+                <td width="120">
+                    <div class="tf-options">
+                        <label><input type="radio" name="b3_tf4_d" value="V"> T</label>
+                        <label><input type="radio" name="b3_tf4_d" value="S"> S</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Sticky Footer Bar -->
+    <div class="footer-bar">
+        <div class="score-display" id="scoreDisplay">Chưa chấm điểm</div>
+        <button class="btn-submit" onclick="gradeQuiz()">Chấm Bài Ngay</button>
+    </div>
+
 </div>
 
 <script>
-    // Đếm ngược thời gian làm bài 90 phút
-    let timeLeft = 90 * 60;
-    const timerElem = document.getElementById('timer');
-    const timerInterval = setInterval(() => {
-        let mins = Math.floor(timeLeft / 60);
-        let secs = timeLeft % 60;
-        timerElem.textContent = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            alert("Đã hết thời gian làm bài!");
-            checkAnswers();
+    // Đáp án Đúng / Sai
+    const tfAnswers = {
+        "b1_tf1_a": "S", "b1_tf1_b": "S", "b1_tf1_c": "Đ", "b1_tf1_d": "Đ",
+        "b1_tf2_a": "Đ", "b1_tf2_b": "Đ", "b1_tf2_c": "S", "b1_tf2_d": "S",
+        "b1_tf3_a": "S", "b1_tf3_b": "S", "b1_tf3_c": "Đ", "b1_tf3_d": "Đ",
+
+        "b2_tf1_a": "Đ", "b2_tf1_b": "Đ", "b2_tf1_c": "Đ", "b2_tf1_d": "S",
+        "b2_tf2_a": "Đ", "b2_tf2_b": "Đ", "b2_tf2_c": "S", "b2_tf2_d": "Đ",
+        "b2_tf3_a": "Đ", "b2_tf3_b": "Đ", "b2_tf3_c": "S", "b2_tf3_d": "Đ",
+
+        "b3_tf1_a": "S", "b3_tf1_b": "Đ", "b3_tf1_c": "S", "b3_tf1_d": "Đ",
+        "b3_tf2_a": "Đ", "b3_tf2_b": "S", "b3_tf2_c": "S", "b3_tf2_d": "Đ",
+        "b3_tf3_a": "Đ", "b3_tf3_b": "Đ", "b3_tf3_c": "Đ", "b3_tf3_d": "S",
+        "b3_tf4_a": "Đ", "b3_tf4_b": "Đ", "b3_tf4_c": "Đ", "b3_tf4_d": "V"
+    };
+
+    function gradeQuiz() {
+        let mcScore = 0;
+        let totalMC = 0;
+
+        let tfScore = 0;
+        let totalTF = 0;
+
+        // 1. Chấm Phần I: Trắc nghiệm 4 lựa chọn
+        const mcCards = document.querySelectorAll('.card:not(.tf-card)');
+        totalMC = mcCards.length;
+
+        mcCards.forEach(card => {
+            const qid = card.getAttribute('data-qid');
+            const correctAnswer = card.getAttribute('data-answer');
+            const selectedOption = card.querySelector(`input[name="${qid}"]:checked`);
+
+            card.classList.remove('correct', 'incorrect');
+            const oldExp = card.querySelector('.explanation');
+            if (oldExp) oldExp.remove();
+
+            const expDiv = document.createElement('div');
+            expDiv.className = 'explanation';
+
+            if (selectedOption) {
+                if (selectedOption.value === correctAnswer) {
+                    mcScore++;
+                    card.classList.add('correct');
+                    expDiv.innerText = `✓ Đúng (Đáp án: ${correctAnswer})`;
+                } else {
+                    card.classList.add('incorrect');
+                    expDiv.innerText = `✗ Sai (Bạn chọn ${selectedOption.value} | Đáp án đúng: ${correctAnswer})`;
+                }
+            } else {
+                card.classList.add('incorrect');
+                expDiv.innerText = `✗ Chưa làm (Đáp án đúng: ${correctAnswer})`;
+            }
+            card.appendChild(expDiv);
+        });
+
+        // 2. Chấm Phần II: Trắc nghiệm Đúng / Sai
+        for (const [key, correctVal] of Object.entries(tfAnswers)) {
+            totalTF++;
+            const radioSelected = document.querySelector(`input[name="${key}"]:checked`);
+            if (radioSelected && radioSelected.value === correctVal) {
+                tfScore++;
+            }
         }
-        timeLeft--;
-    }, 1000);
 
-    function checkAnswers() {
-        let totalScore = 0;
-
-        // Kiểm tra Phần 1 (Mỗi câu 0.5 điểm)
-        if (document.querySelector('input[name="q1"]:checked')?.value === 'A') totalScore += 0.5;
-        if (document.querySelector('input[name="q2"]:checked')?.value === 'A') totalScore += 0.5;
-        if (document.querySelector('input[name="q3"]:checked')?.value === 'A') totalScore += 0.5;
-        if (document.querySelector('input[name="q4"]:checked')?.value === 'A') totalScore += 0.5;
-
-        // Kiểm tra Phần 2 (Mỗi ý đúng 0.25 điểm)
-        if (document.querySelector('input[name="q2_1_a"]:checked')?.value === 'D') totalScore += 0.25;
-        if (document.querySelector('input[name="q2_1_b"]:checked')?.value === 'D') totalScore += 0.25;
-        if (document.querySelector('input[name="q2_1_c"]:checked')?.value === 'S') totalScore += 0.25;
-        if (document.querySelector('input[name="q2_1_d"]:checked')?.value === 'D') totalScore += 0.25;
-
-        // Kiểm tra Phần 3 (Mỗi câu 1 điểm)
-        if (document.getElementById('q3_1').value.trim() === '32') totalScore += 1;
-        if (document.getElementById('q3_2').value.trim() === '4') totalScore += 1;
-        if (document.getElementById('q3_3').value.trim() === '7') totalScore += 1;
-
-        // Hiển thị kết quả
-        document.getElementById('resultBox').style.display = 'block';
-        document.getElementById('scoreText').textContent = `${totalScore} / 5.0 Điểm`;
-
-        // Hiện tất cả lời giải
-        const explanations = document.querySelectorAll('.explanation');
-        explanations.forEach(exp => exp.style.display = 'block');
-
-        // Cuộn màn hình xuống phần kết quả
-        document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+        // 3. Hiển thị điểm số tổng hợp
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        scoreDisplay.innerText = `Kết quả: Trắc nghiệm ${mcScore}/${totalMC} câu | Đúng/Sai ${tfScore}/${totalTF} ý`;
+        
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 </script>
 
